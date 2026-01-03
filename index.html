@@ -2,28 +2,49 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Robux Clicker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="dark">
 
-  <div class="counter" id="counter">0 💰</div>
+  <div class="top">
+    <div id="counter" class="counter">0 💰</div>
+    <div id="level" class="level">Уровень: 0</div>
+  </div>
 
-  <img src="robux.png" class="robux" id="robux">
+  <div class="game">
+    <img src="robux.png" id="robux" class="robux" alt="Robux">
+  </div>
 
   <div class="shop">
     <h2>🛒 Магазин</h2>
 
     <button id="upgrade1">
-      +1 за клик<br>
-      Цена: 50
+      ➕ +1 за клик<br>
+      <span>Цена: 50</span>
     </button>
 
     <button id="upgrade2">
-      +5 за клик<br>
-      Цена: 200
+      🚀 +5 за клик<br>
+      <span>Цена: 200</span>
     </button>
+
+    <button id="auto">
+      ⏱ Автокликер (+1/сек)<br>
+      <span>Цена: 300</span>
+    </button>
+  </div>
+
+  <div class="themes">
+    <h2>🌈 Темы</h2>
+    <button id="dark">🌑</button>
+    <button id="light">☀️</button>
+    <button id="neon">💚</button>
+  </div>
+
+  <div id="achievements" class="achievements">
+    Нет достижений
   </div>
 
   <audio id="clickSound" src="click.mp3"></audio>
