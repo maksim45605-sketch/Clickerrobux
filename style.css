@@ -5,124 +5,135 @@
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: Arial, sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 15px;
-  transition: background 0.3s, color 0.3s;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: linear-gradient(135deg, #020617, #020617, #052e16);
+  color: white;
 }
 
 /* 🔝 Верх */
 .top {
-  text-align: center;
-  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
 }
 
-.counter {
-  font-size: 32px;
+.balance {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 28px;
   font-weight: bold;
 }
 
+.balance img {
+  width: 36px;
+}
+
 .level {
-  font-size: 18px;
   opacity: 0.8;
 }
 
 /* 🎮 Игра */
 .game {
-  flex: 1;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  padding: 30px 0;
+}
+
+.click-zone {
+  position: relative;
 }
 
 .robux {
-  width: 200px;
+  width: 220px;
   max-width: 70vw;
   cursor: pointer;
+  filter: drop-shadow(0 0 30px rgba(34,197,94,0.6));
   transition: transform 0.1s;
 }
 
 .robux:active {
-  transform: scale(0.9);
+  transform: scale(0.88);
+}
+
+/* ✨ Всплывающий +1 */
+.floating {
+  position: absolute;
+  color: #22c55e;
+  font-weight: bold;
+  animation: floatUp 1s forwards;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-60px);
+  }
 }
 
 /* 🛒 Магазин */
 .shop {
-  width: 100%;
-  max-width: 320px;
-  margin-top: 20px;
+  padding: 20px;
 }
 
 .shop h2 {
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
-.shop button {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 15px;
-  font-size: 16px;
-  border: none;
-  border-radius: 14px;
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+.card {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  border-radius: 18px;
+  padding: 20px;
   cursor: pointer;
-  background: #22c55e;
-  color: black;
-  transition: transform 0.1s, background 0.2s;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
 
-.shop button span {
-  font-size: 14px;
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+
+.card h3 {
+  margin: 0 0 5px;
+}
+
+.card p {
   opacity: 0.8;
+  margin: 0 0 10px;
 }
 
-.shop button:hover {
-  background: #4ade80;
+.card span {
+  font-weight: bold;
+  color: #22c55e;
 }
 
-.shop button:active {
-  transform: scale(0.95);
+/* 🏆 Инфо */
+.info {
+  padding: 20px;
+  display: grid;
+  gap: 10px;
 }
 
-/* 🌈 Темы */
-.themes {
-  margin-top: 20px;
+.glass {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 15px;
   text-align: center;
 }
-
-.themes button {
-  font-size: 24px;
-  margin: 5px;
-  padding: 8px 14px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-}
-
-/* 🏆 Достижения */
-.achievements {
-  margin-top: 20px;
-  text-align: center;
-  font-size: 16px;
-}
-
-/* 🌑 Темная */
-.dark {
-  background: radial-gradient(circle at top, #1e293b, #020617);
-  color: white;
-}
-
-/* ☀️ Светлая */
-.light {
-  background: #f8fafc;
-  color: black;
-}
-
-/* 💚 Неон */
-.neon {
-  background: black;
-  color: #22ff00;
-  text-shadow: 0 0 8px #22ff00;
-  }
