@@ -1,73 +1,114 @@
-// 🔐 уникальный ID
-let userId = localStorage.getItem("userId");
-if (!userId) {
-  userId = "user_" + Math.random().toString(36).slice(2);
-  localStorage.setItem("userId", userId);
-}
-
-// 💾 данные
 let count = Number(localStorage.getItem("count")) || 0;
 let clickPower = Number(localStorage.getItem("clickPower")) || 1;
 let autoPower = Number(localStorage.getItem("autoPower")) || 0;
-let theme = localStorage.getItem("theme") || "dark";
+
+let achievements = JSON.parse(localStorage.getItem("achievements")) || {};
 
 const counter = document.getElementById("counter");
+const levelEl = document.getElementById("level");
 const robux = document.getElementById("robux");
 const clickSound = document.getElementById("clickSound");
-
-const levelEl = document.getElementById("level");
 const achievementsEl = document.getElementById("achievements");
-
-function updateUI() {
-  counter.textContent = count + " 💰";
-  levelEl.textContent = "Уровень: " + Math.floor(count / 100);
-  checkAchievements();
-}
+const statsEl = document.getElementById("stats");
 
 function save() {
   localStorage.setItem("count", count);
   localStorage.setItem("clickPower", clickPower);
   localStorage.setItem("autoPower", autoPower);
-  localStorage.setItem("theme", theme);
+  localStorage.setItem("achievements", JSON.stringify(achievements));
 }
 
-// 🖱 клик
-robux.onclick = () => {
+function updateUI() {
+  counter.textContent = count;
+  levelEl.textContent = "Уровень " + Math.floor(count / 100);
+  achievementsEl.innerHTML = Object.keys(achievements).length
+    ? Object.keys(achievements).join("<br>")
+    : "Нет достижений";
+}
+
+updateUI();
+
+/* 💥 частицы */
+function spawnParticles(x, y) {
+  for (let i = 0; i < 8; i++) {
+    const p = document.createElement("div");
+    p.className = "particle";
+    p.style.left = x + "px";
+    p.style.top = y + "px";
+    p.style.setProperty("--x", `${(Math.random() - 0.5) * 120}px`);
+    p.style.setProperty("--y", `${(Math.random() - 0.5) * 120}px`);
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 800);
+  }
+}
+
+/* 🏆 toast */
+function showAchievement(text) {
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.innerHTML = `🏆 <b>${text}</b>`;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
+
+/* 🏆 проверка ачивок */
+function checkAchievements() {
+  const list = [
+    { id: "100", value: 100, text: "Первые 100 Robux" },
+    { id: "500", value: 500, text: "500 Robux!" },
+    { id: "1000", value: 1000, text: "Тысяча Robux 💎" }
+  ];
+
+  list.forEach(a => {
+    if (count >= a.value && !achievements[a.text]) {
+      achievements[a.text] = true;
+      showAchievement(a.text);
+      save();
+    }
+  });
+}
+
+/* 🖱 клик */
+robux.addEventListener("click", e => {
   count += clickPower;
   clickSound.currentTime = 0;
   clickSound.play();
-  save();
-  updateUI();
-};
 
-// ⏱ автокликер
-setInterval(() => {
-  count += autoPower;
+  spawnParticles(e.clientX, e.clientY);
+  checkAchievements();
   save();
   updateUI();
+});
+
+/* ⏱ автоклик */
+setInterval(() => {
+  if (autoPower > 0) {
+    count += autoPower;
+    checkAchievements();
+    save();
+    updateUI();
+  }
 }, 1000);
 
-// 🏆 достижения
-function checkAchievements() {
-  let text = "";
-  if (count >= 100) text += "🥉 100 кликов<br>";
-  if (count >= 500) text += "🥈 500 кликов<br>";
-  if (count >= 1000) text += "🥇 1000 кликов<br>";
-  achievementsEl.innerHTML = text || "Нет достижений";
-}
+/* 🛒 магазин */
+document.getElementById("upgrade1").onclick = () => {
+  if (count >= 50) {
+    count -= 50;
+    clickPower += 1;
+    save();
+    updateUI();
+  }
+};
 
-// 🌈 темы
-function setTheme(t) {
-  document.body.className = t;
-  theme = t;
-  save();
-}
+document.getElementById("upgrade2").onclick = () => {
+  if (count >= 200) {
+    count -= 200;
+    clickPower += 5;
+    save();
+    updateUI();
+  }
+};
 
-document.getElementById("dark").onclick = () => setTheme("dark");
-document.getElementById("light").onclick = () => setTheme("light");
-document.getElementById("neon").onclick = () => setTheme("neon");
-
-// 🛒 магазин
 document.getElementById("auto").onclick = () => {
   if (count >= 300) {
     count -= 300;
@@ -76,6 +117,3 @@ document.getElementById("auto").onclick = () => {
     updateUI();
   }
 };
-
-document.body.className = theme;
-updateUI();
