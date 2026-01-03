@@ -137,3 +137,25 @@ body {
   padding: 15px;
   text-align: center;
 }
+
+/* 💥 Частицы */
+.particle {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background-image: url("robux.png");
+  background-size: cover;
+  pointer-events: none;
+  animation: explode 0.8s forwards;
+}
+
+@keyframes explode {
+  from {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translate(var(--x), var(--y)) scale(0.2);
+    opacity: 0;
+  }
+  }
