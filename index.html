@@ -1,92 +1,75 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Robux Clicker</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Robux Clicker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="dark">
 
-<!-- 🔝 Верхняя панель -->
 <header class="top">
   <div class="balance">
-    <img src="robux.png" alt="Robux">
+    <img src="robux.png">
     <span id="counter">0</span>
   </div>
 </header>
 
-<!-- 🎯 Прогресс уровня -->
 <div class="level-box">
-  <div class="level-text" id="levelText">
-    Уровень 0 · 0 / 100 R$
-  </div>
+  <div class="level-text" id="levelText"></div>
   <div class="level-bar">
     <div class="level-fill" id="levelFill"></div>
   </div>
 </div>
 
-<!-- 🎮 Игровая зона -->
 <main class="game">
-  <div class="click-zone">
-    <img src="robux.png" id="robux" class="robux" alt="Robux">
-  </div>
+  <img src="robux.png" id="robux" class="robux">
 </main>
 
-<!-- 🛒 Магазин -->
 <section class="shop">
-  <h2>Магазин улучшений</h2>
+<h2>🛒 Магазин</h2>
+<div class="shop-grid">
 
-  <div class="shop-grid">
-    <div class="card" id="upgrade1">
-      <h3>➕ Сила клика</h3>
-      <p>+1 за каждый клик</p>
-      <span>50 R$</span>
-    </div>
+<div class="card" id="upgrade1">
+<h3>➕ Клик</h3><p>+1 за клик</p><span>50 R$</span>
+</div>
 
-    <div class="card" id="upgrade2">
-      <h3>🚀 Мощный клик</h3>
-      <p>+5 за каждый клик</p>
-      <span>200 R$</span>
-    </div>
+<div class="card" id="upgrade2">
+<h3>🚀 Мощный клик</h3><p>+5 за клик</p><span>200 R$</span>
+</div>
 
-    <div class="card" id="auto">
-      <h3>⏱ Автокликер</h3>
-      <p>+1 Robux в секунду</p>
-      <span>300 R$</span>
-    </div>
-  </div>
+<div class="card" id="ultraClick">
+<h3>💥 Ультра клик</h3><p>+25 за клик</p><span>2000 R$</span>
+</div>
+
+<div class="card" id="auto">
+<h3>⏱ Авто</h3><p>+1 / сек</p><span>300 R$</span>
+</div>
+
+<div class="card" id="autoPower">
+<h3>🔥 Мощный авто</h3><p>+5 / сек</p><span>900 R$</span>
+</div>
+
+<div class="card" id="ultraAuto">
+<h3>⚡ Ультра авто</h3><p>+25 / сек</p><span>4000 R$</span>
+</div>
+
+</div>
 </section>
 
-<!-- 🏆 Информация -->
 <section class="info">
-  <div id="achievements" class="glass">Нет достижений</div>
-  <div id="stats" class="glass"></div>
+  <div class="glass" id="achievements"></div>
 </section>
 
-<!-- 🎉 LEVEL UP экран -->
 <div id="levelUpScreen" class="levelup hidden">
   <div class="levelup-card">
     <h1>LEVEL UP</h1>
-    <p id="levelUpText">Уровень 1</p>
+    <p id="levelUpText"></p>
   </div>
 </div>
 
-<!-- 🏆 Экран уровней -->
-<div id="levelsScreen" class="levels hidden">
-  <h2>🏆 Уровни</h2>
-  <div id="levelsList"></div>
-  <button onclick="closeLevels()">Закрыть</button>
-</div>
-
-<!-- 🏆 Кнопка уровней -->
-<button class="levels-btn" onclick="openLevels()">🏆</button>
-
-<!-- 🔊 Звук -->
 <audio id="clickSound" src="click.mp3"></audio>
 
-<!-- 🧠 Логика -->
 <script src="script.js"></script>
-
 </body>
   </html>
