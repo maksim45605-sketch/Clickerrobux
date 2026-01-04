@@ -1,48 +1,135 @@
-*{box-sizing:border-box;font-family:system-ui}
+*{
+  box-sizing:border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont;
+}
+
 body{
-margin:0;
-background:linear-gradient(135deg,#0f172a,#020617);
-color:white;
-text-align:center;
-transition:.3s;
+  margin:0;
+  background: linear-gradient(135deg,#f8fafc,#e5e7eb);
+  color:#0f172a;
+  text-align:center;
 }
-.top{padding:15px}
-.balance{font-size:32px;display:flex;gap:10px;justify-content:center;align-items:center}
-.balance img{width:40px}
-.level-box{margin:10px 20px}
-.level-bar{background:#1e293b;border-radius:20px;overflow:hidden;height:14px}
-.level-fill{background:linear-gradient(90deg,#22c55e,#4ade80);height:100%;width:0;transition:.4s}
-.game{margin:30px}
-.robux{width:180px;cursor:pointer;transition:.15s}
-.robux:active{transform:scale(.9)}
-.shop{padding:20px}
-.shop-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:15px}
+
+/* 🔝 верх */
+.top{
+  padding:16px;
+}
+
+.balance{
+  font-size:32px;
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  align-items:center;
+}
+
+.balance img{
+  width:40px;
+}
+
+/* 📈 уровень */
+.level-box{
+  margin:10px 20px;
+  background: rgba(255,255,255,0.9);
+  padding:15px;
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.level-bar{
+  background:#e5e7eb;
+  border-radius:20px;
+  overflow:hidden;
+  height:14px;
+}
+
+.level-fill{
+  background: linear-gradient(90deg,#22c55e,#4ade80);
+  height:100%;
+  width:0;
+  transition:.4s;
+  box-shadow:0 0 12px rgba(34,197,94,.6);
+}
+
+/* 🎮 игра */
+.game{
+  margin:30px;
+}
+
+.robux{
+  width:180px;
+  cursor:pointer;
+  transition:.15s;
+  filter: drop-shadow(0 20px 30px rgba(0,0,0,.25));
+}
+
+.robux:active{
+  transform:scale(.9);
+}
+
+/* 🛒 магазин */
+.shop{
+  padding:20px;
+}
+
+.shop-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:16px;
+}
+
 .card{
-background:rgba(255,255,255,.08);
-padding:15px;
-border-radius:20px;
-cursor:pointer;
-transition:.25s;
+  background: rgba(255,255,255,.9);
+  padding:16px;
+  border-radius:22px;
+  cursor:pointer;
+  transition:.25s;
+  box-shadow:0 15px 35px rgba(0,0,0,.12);
 }
-.card:hover{transform:translateY(-5px)}
-.card span{color:#22c55e}
-.levelup{
-position:fixed;inset:0;
-background:rgba(0,0,0,.85);
-display:flex;align-items:center;justify-content:center;
+
+.card:hover{
+  transform:translateY(-6px);
 }
-.levelup-card{
-background:linear-gradient(135deg,#22c55e,#4ade80);
-color:black;
-padding:40px 60px;
-border-radius:30px;
-animation:pop .6s;
+
+.card span{
+  color:#16a34a;
+  font-weight:700;
 }
-@keyframes pop{from{transform:scale(.5)}to{transform:scale(1)}}
-.hidden{display:none}
+
+/* 🏆 ачивки */
 .glass{
-background:rgba(255,255,255,.08);
-margin:20px;
-padding:15px;
-border-radius:20px;
-  }
+  background: rgba(255,255,255,.9);
+  margin:20px;
+  padding:16px;
+  border-radius:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,.1);
+}
+
+/* 🎉 LEVEL UP */
+.levelup{
+  position:fixed;
+  inset:0;
+  background:rgba(255,255,255,.85);
+  backdrop-filter: blur(8px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+
+.levelup-card{
+  background: linear-gradient(135deg,#22c55e,#4ade80);
+  color:#022c22;
+  padding:40px 60px;
+  border-radius:30px;
+  animation:pop .6s cubic-bezier(.22,1,.36,1);
+}
+
+@keyframes pop{
+  from{transform:scale(.5);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+.hidden{
+  display:none;
+}
