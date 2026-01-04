@@ -1,119 +1,92 @@
-let count = Number(localStorage.getItem("count")) || 0;
-let clickPower = Number(localStorage.getItem("clickPower")) || 1;
-let autoPower = Number(localStorage.getItem("autoPower")) || 0;
-
-let achievements = JSON.parse(localStorage.getItem("achievements")) || {};
+let count = +localStorage.getItem("count") || 0;
+let clickPower = +localStorage.getItem("clickPower") || 1;
+let autoPower = +localStorage.getItem("autoPower") || 0;
+let level = +localStorage.getItem("level") || 0;
+let nextLevelNeed = +localStorage.getItem("nextNeed") || 100;
 
 const counter = document.getElementById("counter");
-const levelEl = document.getElementById("level");
 const robux = document.getElementById("robux");
+const levelText = document.getElementById("levelText");
+const levelFill = document.getElementById("levelFill");
 const clickSound = document.getElementById("clickSound");
-const achievementsEl = document.getElementById("achievements");
-const statsEl = document.getElementById("stats");
 
-function save() {
-  localStorage.setItem("count", count);
-  localStorage.setItem("clickPower", clickPower);
-  localStorage.setItem("autoPower", autoPower);
-  localStorage.setItem("achievements", JSON.stringify(achievements));
+const levelUpScreen = document.getElementById("levelUpScreen");
+const levelUpText = document.getElementById("levelUpText");
+
+function save(){
+  localStorage.setItem("count",count);
+  localStorage.setItem("clickPower",clickPower);
+  localStorage.setItem("autoPower",autoPower);
+  localStorage.setItem("level",level);
+  localStorage.setItem("nextNeed",nextLevelNeed);
 }
 
-function updateUI() {
+function updateUI(){
   counter.textContent = count;
-  levelEl.textContent = "Уровень " + Math.floor(count / 100);
-  achievementsEl.innerHTML = Object.keys(achievements).length
-    ? Object.keys(achievements).join("<br>")
-    : "Нет достижений";
+
+  const progress = Math.min(count / nextLevelNeed * 100, 100);
+  levelText.textContent = `Уровень ${level} · ${count} / ${nextLevelNeed} R$`;
+  levelFill.style.width = progress + "%";
 }
 
-updateUI();
+function levelUp(){
+  level++;
+  count -= nextLevelNeed;
+  nextLevelNeed = Math.floor(nextLevelNeed * 1.5);
 
-/* 💥 частицы */
-function spawnParticles(x, y) {
-  for (let i = 0; i < 8; i++) {
-    const p = document.createElement("div");
-    p.className = "particle";
-    p.style.left = x + "px";
-    p.style.top = y + "px";
-    p.style.setProperty("--x", `${(Math.random() - 0.5) * 120}px`);
-    p.style.setProperty("--y", `${(Math.random() - 0.5) * 120}px`);
-    document.body.appendChild(p);
-    setTimeout(() => p.remove(), 800);
-  }
+  document.body.classList.add("level-up");
+  setTimeout(()=>document.body.classList.remove("level-up"),400);
+
+  levelUpText.textContent = `Уровень ${level}`;
+  levelUpScreen.classList.remove("hidden");
+
+  setTimeout(()=>levelUpScreen.classList.add("hidden"),2000);
 }
 
-/* 🏆 toast */
-function showAchievement(text) {
-  const toast = document.createElement("div");
-  toast.className = "toast";
-  toast.innerHTML = `🏆 <b>${text}</b>`;
-  document.body.appendChild(toast);
-  setTimeout(() => toast.remove(), 3000);
-}
-
-/* 🏆 проверка ачивок */
-function checkAchievements() {
-  const list = [
-    { id: "100", value: 100, text: "Первые 100 Robux" },
-    { id: "500", value: 500, text: "500 Robux!" },
-    { id: "1000", value: 1000, text: "Тысяча Robux 💎" }
-  ];
-
-  list.forEach(a => {
-    if (count >= a.value && !achievements[a.text]) {
-      achievements[a.text] = true;
-      showAchievement(a.text);
-      save();
-    }
-  });
-}
-
-/* 🖱 клик */
-robux.addEventListener("click", e => {
+robux.onclick = e => {
   count += clickPower;
   clickSound.currentTime = 0;
   clickSound.play();
 
-  spawnParticles(e.clientX, e.clientY);
-  checkAchievements();
+  if(count >= nextLevelNeed){
+    levelUp();
+  }
+
   save();
   updateUI();
-});
+};
 
-/* ⏱ автоклик */
-setInterval(() => {
-  if (autoPower > 0) {
+setInterval(()=>{
+  if(autoPower>0){
     count += autoPower;
-    checkAchievements();
+    if(count >= nextLevelNeed){
+      levelUp();
+    }
     save();
     updateUI();
   }
-}, 1000);
+},1000);
 
 /* 🛒 магазин */
-document.getElementById("upgrade1").onclick = () => {
-  if (count >= 50) {
-    count -= 50;
-    clickPower += 1;
-    save();
-    updateUI();
-  }
-};
+upgrade1.onclick=()=>{ if(count>=50){count-=50;clickPower++;save();updateUI();}};
+upgrade2.onclick=()=>{ if(count>=200){count-=200;clickPower+=5;save();updateUI();}};
+auto.onclick=()=>{ if(count>=300){count-=300;autoPower++;save();updateUI();}};
 
-document.getElementById("upgrade2").onclick = () => {
-  if (count >= 200) {
-    count -= 200;
-    clickPower += 5;
-    save();
-    updateUI();
+/* 🏆 уровни */
+function openLevels(){
+  const screen=document.getElementById("levelsScreen");
+  const list=document.getElementById("levelsList");
+  list.innerHTML="";
+  let need=100;
+  for(let i=0;i<=level+3;i++){
+    list.innerHTML+=`<div>${i<=level?"✅":"⬜"} Уровень ${i} — ${need} R$</div>`;
+    need=Math.floor(need*1.5);
   }
-};
+  screen.classList.remove("hidden");
+}
 
-document.getElementById("auto").onclick = () => {
-  if (count >= 300) {
-    count -= 300;
-    autoPower += 1;
-    save();
-    updateUI();
-  }
-};
+function closeLevels(){
+  document.getElementById("levelsScreen").classList.add("hidden");
+}
+
+updateUI();
