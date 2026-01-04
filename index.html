@@ -8,56 +8,85 @@
 </head>
 <body>
 
+<!-- 🔝 Верхняя панель -->
 <header class="top">
   <div class="balance">
-    <img src="robux.png">
+    <img src="robux.png" alt="Robux">
     <span id="counter">0</span>
   </div>
 </header>
 
+<!-- 🎯 Прогресс уровня -->
 <div class="level-box">
-  <div class="level-text" id="levelText">Уровень 0 · 0 / 100 R$</div>
+  <div class="level-text" id="levelText">
+    Уровень 0 · 0 / 100 R$
+  </div>
   <div class="level-bar">
     <div class="level-fill" id="levelFill"></div>
   </div>
 </div>
 
+<!-- 🎮 Игровая зона -->
 <main class="game">
   <div class="click-zone">
-    <img src="robux.png" id="robux" class="robux">
+    <img src="robux.png" id="robux" class="robux" alt="Robux">
   </div>
 </main>
 
+<!-- 🛒 Магазин -->
 <section class="shop">
   <h2>Магазин улучшений</h2>
 
   <div class="shop-grid">
     <div class="card" id="upgrade1">
       <h3>➕ Сила клика</h3>
-      <p>+1 за клик</p>
+      <p>+1 за каждый клик</p>
       <span>50 R$</span>
     </div>
 
     <div class="card" id="upgrade2">
       <h3>🚀 Мощный клик</h3>
-      <p>+5 за клик</p>
+      <p>+5 за каждый клик</p>
       <span>200 R$</span>
     </div>
 
     <div class="card" id="auto">
       <h3>⏱ Автокликер</h3>
-      <p>+1 в секунду</p>
+      <p>+1 Robux в секунду</p>
       <span>300 R$</span>
     </div>
   </div>
 </section>
 
+<!-- 🏆 Информация -->
 <section class="info">
   <div id="achievements" class="glass">Нет достижений</div>
   <div id="stats" class="glass"></div>
 </section>
 
+<!-- 🎉 LEVEL UP экран -->
+<div id="levelUpScreen" class="levelup hidden">
+  <div class="levelup-card">
+    <h1>LEVEL UP</h1>
+    <p id="levelUpText">Уровень 1</p>
+  </div>
+</div>
+
+<!-- 🏆 Экран уровней -->
+<div id="levelsScreen" class="levels hidden">
+  <h2>🏆 Уровни</h2>
+  <div id="levelsList"></div>
+  <button onclick="closeLevels()">Закрыть</button>
+</div>
+
+<!-- 🏆 Кнопка уровней -->
+<button class="levels-btn" onclick="openLevels()">🏆</button>
+
+<!-- 🔊 Звук -->
 <audio id="clickSound" src="click.mp3"></audio>
+
+<!-- 🧠 Логика -->
 <script src="script.js"></script>
+
 </body>
-</html>
+  </html>
