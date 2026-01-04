@@ -231,3 +231,41 @@ body.level-up {
   border: none;
   cursor: pointer;
                                     }
+/* ☀️ Светлая тема */
+body.light {
+  background: linear-gradient(135deg, #f8fafc, #e5e7eb);
+  color: #0f172a;
+}
+
+/* Карточки / стекло */
+body.light .level-box,
+body.light .card,
+body.light .glass {
+  background: rgba(255,255,255,0.85);
+  color: #0f172a;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+/* Магазин */
+body.light .card span {
+  color: #16a34a;
+}
+
+/* Прогресс уровня */
+body.light .level-bar {
+  background: #e5e7eb;
+}
+
+body.light .level-fill {
+  box-shadow: 0 0 10px rgba(34,197,94,0.6);
+}
+
+/* Верхняя панель */
+body.light .top {
+  background: transparent;
+}
+
+/* Тени под робуксом */
+body.light .robux {
+  filter: drop-shadow(0 0 20px rgba(0,0,0,0.2));
+  }
